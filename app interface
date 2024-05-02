@@ -1,0 +1,50 @@
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton
+import sys
+
+class PasswordGeneratorApp(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Password Generator")
+        self.layout = QVBoxLayout()
+
+        self.length_label = QLabel("Password Length:")
+        self.length_input = QLineEdit()
+        self.layout.addWidget(self.length_label)
+        self.layout.addWidget(self.length_input)
+
+        self.uppercase_checkbox = QCheckBox("Include Uppercase")
+        self.layout.addWidget(self.uppercase_checkbox)
+
+        self.lowercase_checkbox = QCheckBox("Include Lowercase")
+        self.layout.addWidget(self.lowercase_checkbox)
+
+        self.numbers_checkbox = QCheckBox("Include Numbers")
+        self.layout.addWidget(self.numbers_checkbox)
+
+        self.symbols_checkbox = QCheckBox("Include Symbols")
+        self.layout.addWidget(self.symbols_checkbox)
+
+        self.generate_button = QPushButton("Generate Password")
+        self.generate_button.clicked.connect(self.generate_password)
+        self.layout.addWidget(self.generate_button)
+
+        self.password_label = QLabel()
+        self.layout.addWidget(self.password_label)
+
+        self.setLayout(self.layout)
+
+    def generate_password(self):
+        length = int(self.length_input.text())
+        include_uppercase = self.uppercase_checkbox.isChecked()
+        include_lowercase = self.lowercase_checkbox.isChecked()
+        include_numbers = self.numbers_checkbox.isChecked()
+        include_symbols = self.symbols_checkbox.isChecked()
+
+        password = generate_password(length, include_uppercase, include_lowercase, include_numbers, include_symbols)
+        self.password_label.setText("Generated Password: " + password)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = PasswordGeneratorApp()
+    window.show()
+    sys.exit(app.exec_())
