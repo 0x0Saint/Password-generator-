@@ -9,3 +9,4 @@ if __name__ == "__main__":
     window.generate_password = generate_password  # Assign the password generation function to the window's attribute
     window.show()
     sys.exit(app.exec_())
+
